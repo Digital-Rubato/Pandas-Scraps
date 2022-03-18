@@ -1,0 +1,27 @@
+import pandas as pd
+
+# set up 'writer' using filename and the engine
+writer = pd.ExcelWriter('formattingXL.xlsx', engine='xlsxwriter')
+
+#add data to excel
+df = pd.DataFrame({'Name': ['E', 'F', 'G', 'H'], 'Barcode': [M014554, M017977, M012345, M098348], 'Numbers': [M014554, M017977, M012345, M098348]})
+
+#write the data to excel
+df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+#get the workbook
+workbook = writer.book
+
+#get sheet 1
+worksheet = writer.sheets['Sheet1']
+
+#format the cells
+cell_format = workbook.add_format()
+cell_format.set_bold()
+#will set the specified cells font format to the desired
+cell_format.set_font_name('free3of9')
+cell_format.set_font_color('blue')
+
+worksheet.set_column('B:B', None, cell_format)
+
+writer.close()
